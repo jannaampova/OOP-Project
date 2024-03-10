@@ -5,9 +5,9 @@ import java.util.List;
 public class Section {
 
         private int number;
-        private List<Integer> shelves=new ArrayList<>();
-        private int shelfCapacity;
-        private int capacity;
+        private List<Shelf> shelves=new ArrayList<>();
+        private int shelfCapacityInSection;
+
 
         public int getNumber() {
             return number;
@@ -18,35 +18,37 @@ public class Section {
         }
 
 
-        public int getCapacity() {
-            return capacity;
-        }
 
-        public void setCapacity(int capacity) {
-            this.capacity = capacity;
-        }
 
-        public List<Integer> getShelves() {
+        public List<Shelf> getShelves() {
             return shelves;
         }
 
 
-        public int getShelfCapacity() {
-            return shelfCapacity;
+        public int getShelfCapacityInSection() {
+            return shelfCapacityInSection;
         }
 
-        public void setShelfCapacity(int shelfCapacity) {
-            this.shelfCapacity = shelfCapacity;
+        public void setShelfCapacityInSection(int shelfCapacity) {
+            this.shelfCapacityInSection = shelfCapacity;
         }
 
-        public Section(int number, int shelfCapacity, int capacity) {
+        public Section(int number, int shelfCapacityInSection) {
             this.number = number;
-            this.shelfCapacity = shelfCapacity;
-            this.capacity = capacity;
+            this.shelfCapacityInSection = shelfCapacityInSection;
+
         }
-        public void addShelf(Integer shelfNum){
-            if(shelves.size()<=shelfCapacity){
-                shelves.add(shelfNum);}else {
+        public void addShelf(Shelf shelfNum){
+            if(shelves.size()<=shelfCapacityInSection){
+            if(shelfNum.getCapacityOnShelf()>shelfNum.getProductNum()){
+                shelves.add(shelfNum);
+            }
+            else{
+                System.out.println("Няма достатъчно място на този  рафт!");
+            }
+
+            }
+            else {
                 System.out.println("Няма достатъчно място за нов рафт!");
             }
         }

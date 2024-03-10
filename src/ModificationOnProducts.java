@@ -1,7 +1,7 @@
 public interface ModificationOnProducts {
 
-        void  Add(Product product);
-        void Remove(String name,int quantity);
+        void  add(Product product);
+        void remove(String name,int quantity);
 
 
 }

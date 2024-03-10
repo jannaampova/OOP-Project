@@ -61,16 +61,16 @@ public abstract class Product {
             this.comment = comment;
         }
 
-        public Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, int quantity, Location location, String comment) {
-            this.name = name;
-            this.expiryDate = expiryDate;
-            this.arrivalDate = arrivalDate;
-            this.manufacturer = manufacturer;
-            this.unity = unity;
-            this.quantity = quantity;
-            this.location = location;
-            this.comment = comment;
-        }
+    protected Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, int quantity, Location location, String comment) {
+        this.name = name;
+        this.expiryDate = expiryDate;
+        this.arrivalDate = arrivalDate;
+        this.manufacturer = manufacturer;
+        this.unity = unity;
+        this.quantity = quantity;
+        this.location = location;
+        this.comment = comment;
     }
+}
 
 
