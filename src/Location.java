@@ -23,9 +23,17 @@ public class Location {
         this.capacity = capacity;
     }
 
-    public Location(List<Section> section, int capacity) {
-        this.section = section;
-        this.capacity = capacity;
+    public Location() {
+        this.section =new ArrayList<>();
+        this.capacity =15;//sekcii v warehouse
+    }
+    public  void addSection(Section section1){
+        if(section.size()<capacity){
+            if(section.get(section.size()-1).getShelfCapacityInSection()<=section.get(section.size()-1).getShelves().size()) {
+                section.add(section1);
+            }
+        }
+
     }
 
 
