@@ -12,6 +12,5 @@ public class Main {
         warehouse.add(product3);
         System.out.println();
 
-        warehouse.printAllWithTheSameName(product1);
     }
 }
