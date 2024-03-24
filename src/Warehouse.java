@@ -5,12 +5,76 @@ import java.util.Map;
 
 public class Warehouse implements ModificationOnProducts {
 private Location location=new Location();
-    private Map<String, List<Product>> productMap = new HashMap<>();//KLUCHA E IMETO NA PRODUKT I SE SVYRZVA SYS SAMITE DANNI
+    private Map<String, List<Location>> productMap = new HashMap<>();//KLUCHA E IMETO NA PRODUKT I SE SVYRZVA SYS SAMITE DANNI
     private static int sectionNumber = 0;
     private final int sectionCapacityInWarehouse=30;
-
-
     public void add(Product product) {
+        if (productMap.containsKey(product.getName())) {
+            for (List<Location> locations : productMap.values()) {
+                for (Location location : locations) {
+                    for (Section section : location.getSection()) {
+                        Shelf shelf = findShelfWithMatchingProduct(section, product);
+                        if (shelf != null) {
+                            shelf.addProductWithSameExpiryDate(product);
+                            return;
+                        } else {
+                            // If no matching product, try to find an empty shelf
+                            Shelf emptyShelf = findEmptyShelf(section);
+                            if (emptyShelf != null) {
+                                emptyShelf.add(product);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
+        }else{  for (List<Location> locations : productMap.values()) {
+            for (Location location : locations) {
+                for (Section section : location.getSection()) {
+                    Shelf emptyShelf = findEmptyShelf(section);
+                    if (emptyShelf != null) {
+                        emptyShelf.add(product);
+                        return;
+                    }
+                }
+            }
+        }}
+
+    }
+    private Shelf findShelfWithMatchingProduct(Section section, Product product) {
+        for (Shelf shelf : section.getShelves()) {
+            if (!shelf.getProducts().isEmpty() && shelf.getProducts().get(0).getName().equals(product.getName())) {
+                for (Product existingProduct : shelf.getProducts()) {
+                    if (existingProduct.getExpiryDate().equals(product.getExpiryDate())) {
+                        return shelf;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private Shelf findEmptyShelf(Section section) {
+        for (Shelf shelf : section.getShelves()) {
+            if (shelf.getProducts().isEmpty()) {
+                return shelf;
+            }
+        }
+        return null;
+   /* public void add(Product product) {
+        int counter=0;
+        if (productMap.containsKey(product.getName())) {
+            for(Map.Entry<String,List<Location>> i:productMap.entrySet()){
+                for (Location l : i.getValue()) {
+                    ++counter;
+                    if (l.getSection().get(counter).getShelves().get(counter).getProducts().get(counter).getExpiryDate().equals(product.getExpiryDate())) {
+                        l.getSection().get(counter).getShelves().get(counter).addProductWithSameExpiryDate(product);
+                    }
+                    else   l.getSection().get(counter).addProduct(product);
+
+                }
+            }}
+
 /*
         if (productMap.containsKey(product.getName())) {
             for (Map.Entry<String, List<Product>> i : productMap.entrySet()) {

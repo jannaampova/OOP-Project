@@ -38,4 +38,25 @@ public class Shelf {
             products.add(product);
         }
     }
+    private Shelf findShelfWithMatchingProduct(Section section, Product product) {
+        for (Shelf shelf : section.getShelves()) {
+            if (!shelf.getProducts().isEmpty() && shelf.getProducts().get(0).getName().equals(product.getName())) {
+                for (Product existingProduct : shelf.getProducts()) {
+                    if (existingProduct.getExpiryDate().equals(product.getExpiryDate())) {
+                        return shelf;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private Shelf findEmptyShelf(Section section) {
+        for (Shelf shelf : section.getShelves()) {
+            if (shelf.getProducts().isEmpty()) {
+                return shelf;
+            }
+        }
+        return null;
+    }
 }

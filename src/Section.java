@@ -37,6 +37,11 @@ public class Section {
 
     }
 
+
+    public void setShelves(List<Shelf> shelves) {
+        this.shelves = shelves;
+    }
+
     public void addProduct(Product product) {
         boolean flag = false;
         for (Shelf s : shelves) {
@@ -45,8 +50,8 @@ public class Section {
                     if (!p.getExpiryDate().equals(product.getExpiryDate())) {
                         break;
                     } else {
-                        s.addProductWithSameExpiryDate(product);
                         flag = true;
+                        s.addProductWithSameExpiryDate(product);
                         break;
                     }
                 }
