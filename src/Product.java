@@ -1,4 +1,6 @@
-public abstract class Product {
+import java.util.Objects;
+
+public  class Product {
 
         private String name;
         private String expiryDate;
@@ -6,56 +8,10 @@ public abstract class Product {
         private String manufacturer;
         private String unity;
         private int quantity;
+        private Location location;
         private String comment;
 
-        public String getName() {
-            return name;
-        }
-
-        public String getExpiryDate() {
-            return expiryDate;
-        }
-
-        public String getArrivalDate() {
-            return arrivalDate;
-        }
-
-        public String getManufacturer() {
-            return manufacturer;
-        }
-
-        public String getUnity() {
-            return unity;
-        }
-
-        public int getQuantity() {
-            return quantity;
-        }
-
-
-
-        public String getComment() {
-            return comment;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-
-        public void setManufacturer(String manufacturer) {
-            this.manufacturer = manufacturer;
-        }
-        public void setQuantity(int quantity) {
-            this.quantity = quantity;
-        }
-
-
-        public void setComment(String comment) {
-            this.comment = comment;
-        }
-
-    protected Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, int quantity, String comment) {
+    public Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, int quantity, String comment) {
         this.name = name;
         this.expiryDate = expiryDate;
         this.arrivalDate = arrivalDate;
@@ -63,6 +19,83 @@ public abstract class Product {
         this.unity = unity;
         this.quantity = quantity;
         this.comment = comment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(String expiryDate) {
+        this.expiryDate = expiryDate;
+    }
+
+    public String getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(String arrivalDate) {
+        this.arrivalDate = arrivalDate;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getUnity() {
+        return unity;
+    }
+
+    public void setUnity(String unity) {
+        this.unity = unity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return quantity == product.quantity && Objects.equals(name, product.name) && Objects.equals(expiryDate, product.expiryDate) && Objects.equals(arrivalDate, product.arrivalDate) && Objects.equals(manufacturer, product.manufacturer) && Objects.equals(unity, product.unity) && Objects.equals(location, product.location) && Objects.equals(comment, product.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, expiryDate, arrivalDate, manufacturer, unity, quantity, location, comment);
     }
 }
 
