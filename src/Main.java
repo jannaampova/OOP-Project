@@ -15,6 +15,7 @@ public class Main {
         warehouse.add(product2);
         warehouse.add(product3);
         warehouse.add(product5);
+        warehouse.remove("MILK",21);
         System.out.println();
 
     }

@@ -97,6 +97,20 @@ public  class Product {
     public int hashCode() {
         return Objects.hash(name, expiryDate, arrivalDate, manufacturer, unity, quantity, location, comment);
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", expiryDate='" + expiryDate + '\'' +
+                ", arrivalDate='" + arrivalDate + '\'' +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", unity='" + unity + '\'' +
+                ", quantity=" + quantity +
+                ", location=" + location.toString() +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }
 
 
