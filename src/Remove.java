@@ -3,6 +3,12 @@ import sun.font.CreatedFontTracker;
 import java.util.*;
 
 public class Remove implements Delete{
+    private ManageHistory removeProductsHistory;
+
+    public Remove(ManageHistory removeProductsHistory) {
+        this.removeProductsHistory = removeProductsHistory;
+    }
+
     @Override
     public String remove(String name, int quantity, Map<String, List<Product>> productList) {
         List<Product> products = productList.get(name);
@@ -11,6 +17,7 @@ public class Remove implements Delete{
         products.sort(Comparator.comparing(Product::getExpiryDate));
         int sum=0;
         for (Product product : products) {
+
             sum+=product.getQuantity();
             tempProducts.add(product) ;
             if(sum>=quantity){
@@ -25,7 +32,9 @@ public class Remove implements Delete{
             if(answer.equalsIgnoreCase("yes")){
                 for(int i=0;i< products.size();i++){
                     sb.append(products.get(i).getName()).append(System.lineSeparator());
-                    int tempQuantity = products.get(i).getQuantity();
+                 //   int tempQuantity = products.get(i).getQuantity();
+                    removeProductsHistory.addNewChange(products.get(i).getArrivalDate(),products.get(i).getName(),products.get(i).getQuantity());
+
                     productList.get(products.get(i).getName()).remove(products.get(i));
                 }
             }
@@ -34,10 +43,12 @@ public class Remove implements Delete{
                 int tempQuantity = products.get(i).getQuantity();
                 int rest=quantity-tempQuantity;
                 if(rest<0){
+                    removeProductsHistory.addNewChange(products.get(i).getArrivalDate(),products.get(i).getName(),tempQuantity-quantity);
                     productList.get(products.get(i).getName()).get(i).setQuantity(tempQuantity-quantity);
                     break;
                 }
                 sb.append(products.get(i).getName()).append(System.lineSeparator());
+                removeProductsHistory.addNewChange(products.get(i).getArrivalDate(),products.get(i).getName(),products.get(i).getQuantity());
 
                 productList.get(products.get(i).getName()).remove(products.get(i));
             }

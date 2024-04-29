@@ -13,8 +13,8 @@ public  class Product {
 
     public Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, int quantity, String comment) {
         this.name = name;
-        this.expiryDate = expiryDate;
-        this.arrivalDate = arrivalDate;
+        setExpiryDate(expiryDate);
+        setArrivalDate(arrivalDate);
         this.manufacturer = manufacturer;
         this.unity = unity;
         this.quantity = quantity;
@@ -34,7 +34,8 @@ public  class Product {
     }
 
     public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
+        ValidateDate date=new ValidateDate();
+        this.expiryDate =date.validate(expiryDate); ;
     }
 
     public String getArrivalDate() {
@@ -42,7 +43,8 @@ public  class Product {
     }
 
     public void setArrivalDate(String arrivalDate) {
-        this.arrivalDate = arrivalDate;
+        ValidateDate date=new ValidateDate();
+        this.arrivalDate = date.validate(arrivalDate);
     }
 
     public String getManufacturer() {

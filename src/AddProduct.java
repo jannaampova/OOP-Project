@@ -5,11 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 public class AddProduct implements Add {
+    private ManageHistory addProduct;
+    private ValidateDate dateValidation;
+
+
+    public AddProduct(ManageHistory addProduct,ValidateDate dateValidation) {
+        this.addProduct = addProduct;
+        this.dateValidation=dateValidation;
+    }
+
     @Override
     public void add(Map<String, List<Product>> listOfProducts, Product product) throws LocationException {
-        // Location location = product.getLocation();// location on product that will be added
         boolean flag=true;
-
+addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.getQuantity());
         for (Map.Entry<String, List<Product>> stringListEntry : listOfProducts.entrySet()) {
             if (stringListEntry.getKey().equals(product.getName())) {
                 String expiryDateNew = product.getExpiryDate();
