@@ -1,6 +1,5 @@
 import exeptions.LocationException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +10,7 @@ private Add add;
 private Delete remove;
     private ManageHistory addProductHistory;
     private ManageHistory removeProductHistory;
+    private ValidateDate validateDate;
 
     public Warehouse() {
         this.products = new HashMap<>();

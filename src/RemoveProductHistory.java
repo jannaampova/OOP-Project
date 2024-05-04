@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,16 +51,11 @@ public class RemoveProductHistory implements ManageHistory {
             String month = dateValidation.getMonth(date);
             String year = dateValidation.getYear(date);
 
-            if (year.compareTo(fromYear) >= 0 && year.compareTo(toYear) <= 0) {
-                if (month.compareTo(fromMonth) >= 0 && month.compareTo(toMonth) <= 0) {
-                    if (day.compareTo(fromDay) >= 0 && day.compareTo(toDay) <= 0) {
-                        for (Map.Entry<String, Integer> innerMap : stringMapEntry.getValue().entrySet()) {
-                            System.out.println("Product: " + innerMap.getKey() + ", quantity: " + innerMap.getValue()+" DATE: "+date);
-                        }
-
-                    }
+            LocalDate localDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+            if (localDate.isBefore(LocalDate.of(Integer.parseInt(toYear), Integer.parseInt(toMonth), Integer.parseInt(toDay))) && localDate.isAfter(LocalDate.of(Integer.parseInt(fromYear), Integer.parseInt(fromMonth), Integer.parseInt(fromDay)))) {
+                for (Map.Entry<String, Integer> innerMap : stringMapEntry.getValue().entrySet()) {
+                    System.out.println("Product: " + innerMap.getKey() + ", quantity: " + innerMap.getValue() + " DATE: " + date);
                 }
-
             }
         }
     }
