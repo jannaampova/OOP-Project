@@ -7,11 +7,11 @@ public  class Product {
         private String arrivalDate;
         private String manufacturer;
         private String unity;
-        private int quantity;
+        private double quantity;
         private Location location;
         private String comment;
 
-    public Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, int quantity, String comment) {
+    public Product(String name, String expiryDate, String arrivalDate, String manufacturer, String unity, double quantity, String comment) {
         this.name = name;
         setExpiryDate(expiryDate);
         setArrivalDate(arrivalDate);
@@ -63,11 +63,11 @@ public  class Product {
         this.unity = unity;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 

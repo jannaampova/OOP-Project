@@ -12,12 +12,12 @@ public class Remove implements Delete {
     }
 
     @Override
-    public String remove(String name, int quantity, Map<String, List<Product>> productList) {
+    public String remove(String name, double quantity, Map<String, List<Product>> productList) {
         List<Product> products = productList.get(name);
         List<Product> tempProducts = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         products.sort(Comparator.comparing(Product::getExpiryDate));
-        int sum = 0;
+        double sum = 0;
         for (Product product : products) {
 
             sum += product.getQuantity();
@@ -46,16 +46,16 @@ public class Remove implements Delete {
             int day = random.ints(1, 29).findFirst().getAsInt();
             int month = random.ints(1, 13).findFirst().getAsInt();
             int year = random.ints(2020, 2024).findFirst().getAsInt();
-            int saveLastQuantity=0;
+            double saveLastQuantity=0;
             StringBuilder removalDate = new StringBuilder();
             removalDate.append(day).append("/").append(month).append("/").append(year);
             for (int i = 0; i < tempProducts.size(); i++) {
-                int tempQuantity = tempProducts.get(i).getQuantity();
-                int rest = quantity - tempQuantity;
+                double tempQuantity = tempProducts.get(i).getQuantity();
+                double rest = quantity - tempQuantity;
                 saveLastQuantity=rest;
 
                 if (rest < 0) {
-                    saveLastQuantity=0;
+                    saveLastQuantity=0.0;
                     productList.get(tempProducts.get(i).getName()).get(i).setQuantity(tempQuantity - quantity);
                     break;
                 }

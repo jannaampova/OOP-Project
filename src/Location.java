@@ -9,11 +9,11 @@ public class Location {
     private String sector;
     public static Map<String,Integer> shelf = new HashMap<>();//kolko rafta ima
     private int realShelf;
-    private int quantity;
+    private double quantity;
     private final int shelfCapacity;//kolko mozhe an raft produkti
     private final int sectorCapacity;//kolko rafta mozhe da ia v section
 
-    public Location(String sector, int quantity) throws LocationException {
+    public Location(String sector, double quantity) throws LocationException {
         this.sector = sector;
         this.shelfCapacity = 250;
         this.sectorCapacity = 20;
@@ -35,12 +35,12 @@ public class Location {
         this.sector = sector;
     }
 
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int number) throws LocationException {
-        int availableSpace=shelfCapacity-getQuantity();
+    public void setQuantity(double number) throws LocationException {
+        double availableSpace=shelfCapacity-getQuantity();
         if(number>shelfCapacity)throw new LocationException("No capacity on shelf,You can add "+availableSpace);
         this.quantity = number;
     }

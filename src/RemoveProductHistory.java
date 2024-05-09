@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RemoveProductHistory implements ManageHistory {
-    Map<String, Map<String, Integer>> removedProducts;//data ime na produkt i kolicestvo
+    Map<String, Map<String, Double>> removedProducts;//data ime na produkt i kolicestvo
     ValidateDate dateValidation;
 
     public RemoveProductHistory() {
@@ -12,20 +12,20 @@ public class RemoveProductHistory implements ManageHistory {
     }
 
     @Override
-    public void addNewChange(String date, String name, int quantity) {
+    public void addNewChange(String date, String name, double quantity) {
         if (removedProducts.containsKey(date)) {
             if (removedProducts.get(date).containsKey(name)) {
-                Map<String, Integer> stringIntegerMap = removedProducts.get(date);
+                Map<String, Double> stringIntegerMap = removedProducts.get(date);
                 stringIntegerMap.put(name, stringIntegerMap.get(name) + quantity);
                 removedProducts.put(date, stringIntegerMap);
             } else {
-                removedProducts.putIfAbsent(date, new HashMap<String, Integer>());
+                removedProducts.putIfAbsent(date, new HashMap<String, Double>());
                 removedProducts.get(date).put(date, quantity);
             }
 
         } else {
-            Map<String, Integer> stringIntegerMap = new HashMap<>();
-            removedProducts.putIfAbsent(date, new HashMap<String, Integer>());
+            Map<String, Double> stringIntegerMap = new HashMap<>();
+            removedProducts.putIfAbsent(date, new HashMap<String, Double>());
             stringIntegerMap.put(name, quantity);
 
             removedProducts.put(date, stringIntegerMap);
@@ -45,7 +45,7 @@ public class RemoveProductHistory implements ManageHistory {
         String toYear = dateValidation.getYear(toDate);
         System.out.println("Removed products in the warehouse from date " + fromDate + " to date" + toDate);
 
-        for (Map.Entry<String, Map<String, Integer>> stringMapEntry : removedProducts.entrySet()) {
+        for (Map.Entry<String, Map<String, Double>> stringMapEntry : removedProducts.entrySet()) {
             String date = stringMapEntry.getKey();
             String day = dateValidation.getDay(date);
             String month = dateValidation.getMonth(date);
@@ -53,7 +53,7 @@ public class RemoveProductHistory implements ManageHistory {
 
             LocalDate localDate = LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
             if (localDate.isBefore(LocalDate.of(Integer.parseInt(toYear), Integer.parseInt(toMonth), Integer.parseInt(toDay))) && localDate.isAfter(LocalDate.of(Integer.parseInt(fromYear), Integer.parseInt(fromMonth), Integer.parseInt(fromDay)))) {
-                for (Map.Entry<String, Integer> innerMap : stringMapEntry.getValue().entrySet()) {
+                for (Map.Entry<String, Double> innerMap : stringMapEntry.getValue().entrySet()) {
                     System.out.println("Product: " + innerMap.getKey() + ", quantity: " + innerMap.getValue() + " DATE: " + date);
                 }
             }

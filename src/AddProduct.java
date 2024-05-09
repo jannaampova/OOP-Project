@@ -9,15 +9,15 @@ public class AddProduct implements Add {
     private ValidateDate dateValidation;
 
 
-    public AddProduct(ManageHistory addProduct,ValidateDate dateValidation) {
+    public AddProduct(ManageHistory addProduct, ValidateDate dateValidation) {
         this.addProduct = addProduct;
-        this.dateValidation=dateValidation;
+        this.dateValidation = dateValidation;
     }
 
     @Override
     public void add(Map<String, List<Product>> listOfProducts, Product product) throws LocationException {
-        boolean flag=true;
-addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.getQuantity());
+        boolean flag = true;
+        addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.getQuantity());
         for (Map.Entry<String, List<Product>> stringListEntry : listOfProducts.entrySet()) {
             if (stringListEntry.getKey().equals(product.getName())) {
                 String expiryDateNew = product.getExpiryDate();
@@ -28,28 +28,28 @@ addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.get
 
                     if (checkDateFormat(expiryDateNew, expiryDateCurr)) {
 
-                        flag=false;
+                        flag = false;
                         if (!addWithSameExpiryDate(product.getQuantity(), p)) {
 
-                            int availableSpace = p.getLocation().getShelfCapacity() - p.getQuantity();
+                            double availableSpace = p.getLocation().getShelfCapacity() - p.getQuantity();
                             throw new LocationException("You can add only " + availableSpace + " " + product.getName() + " at location" + p.getLocation().toString());
                         }
                     }
 
                 }
-                if(flag){
-                    flag=false;
-                    addWithDifferentExpiryDate(product,  stringListEntry.getValue());
+                if (flag) {
+                    flag = false;
+                    addWithDifferentExpiryDate(product, stringListEntry.getValue());
                 }
 
             }// ako ne systestvuva s tova ime
 
         }
-        if(flag){
-            Location location=new Location(product.getName(), product.getQuantity());
+        if (flag) {
+            Location location = new Location(product.getName(), product.getQuantity());
 
-                product.setLocation(location);
-                addNotExistingProduct(product,listOfProducts);
+            product.setLocation(location);
+            addNotExistingProduct(product, listOfProducts);
 
         }
     }
@@ -63,24 +63,24 @@ addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.get
         return false;
     }
 
-    public boolean addWithSameExpiryDate(int quantity, Product product) throws LocationException {
-        int newQuantity = product.getQuantity() + quantity;
-            product.setQuantity(newQuantity);
-            product.getLocation().setQuantity(newQuantity);
-            return true;
+    public boolean addWithSameExpiryDate(double quantity, Product product) throws LocationException {
+        double newQuantity = product.getQuantity() + quantity;
+        product.setQuantity(newQuantity);
+        product.getLocation().setQuantity(newQuantity);
+        return true;
     }
+
     public void addWithDifferentExpiryDate(Product product, List<Product> productList) throws LocationException {
 
-            Location location=new Location(product.getName(), product.getQuantity());
-            product.setLocation(location);
-            productList.add(product);
-
+        Location location = new Location(product.getName(), product.getQuantity());
+        product.setLocation(location);
+        productList.add(product);
 
 
     }
 
-    public void addNotExistingProduct(Product product,Map<String,List<Product>> stringListProduct){
-        stringListProduct.put(product.getName(),new ArrayList<>());
+    public void addNotExistingProduct(Product product, Map<String, List<Product>> stringListProduct) {
+        stringListProduct.put(product.getName(), new ArrayList<>());
         stringListProduct.get(product.getName()).add(product);
     }
 
