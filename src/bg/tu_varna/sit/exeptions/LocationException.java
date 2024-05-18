@@ -1,4 +1,4 @@
-package exeptions;
+package bg.tu_varna.sit.exeptions;
 
 public class LocationException extends Exception{
 

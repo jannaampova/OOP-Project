@@ -1,30 +1,45 @@
-import exeptions.LocationException;
+package bg.tu_varna.sit.models;
 
-import java.awt.*;
+import bg.tu_varna.sit.exeptions.LocationException;
+
 import java.util.*;
-import java.util.List;
 
+/**
+ *  The Location class represents a location in a warehouse, defined by a sector and a shelf.
+ *  It manages the capacity of products on each shelf and the number of shelves in each sector.
+ *  The map represents every sector and its shelf occupation
+ *
+ */
 public class Location {
 
     private String sector;
-    public static Map<String,Integer> shelf = new HashMap<>();//kolko rafta ima
+    public static Map<String,Integer> shelf = new HashMap<>();
     private int realShelf;
     private double quantity;
-    private final int shelfCapacity;//kolko mozhe an raft produkti
-    private final int sectorCapacity;//kolko rafta mozhe da ia v section
+    private final int shelfCapacity;//how many products can one shelf have
+    private final int sectorCapacity;//how many shelves can one sector has
 
     public Location(String sector, double quantity) throws LocationException {
         this.sector = sector;
         this.shelfCapacity = 250;
-        this.sectorCapacity = 20;
+        this.sectorCapacity = 5;
         shelf.putIfAbsent(sector,0);
         shelf.put(sector,shelf.get(sector)+1);
         if(shelf.get(sector)>this.getSectorCapacity()){
-            throw new LocationException("No space n section!");
+            throw new LocationException("No space in section!");
         }
         this.realShelf=shelf.get(sector);
         setQuantity(quantity);
 
+    }
+
+
+    public int getRealShelf() {
+        return realShelf;
+    }
+
+    public  Map<String, Integer> getShelf() {
+        return shelf;
     }
 
     public String getSector() {
@@ -41,7 +56,10 @@ public class Location {
 
     public void setQuantity(double number) throws LocationException {
         double availableSpace=shelfCapacity-getQuantity();
-        if(number>shelfCapacity)throw new LocationException("No capacity on shelf,You can add "+availableSpace);
+        if(number>shelfCapacity){
+            System.out.println(("No capacity on shelf,You can add " + availableSpace));
+            return;
+        }
         this.quantity = number;
     }
 
@@ -68,7 +86,7 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
+        return "models.Location{" +
                 "sector='" + sector + '\'' +
                 ", shelf=" + shelf +
                 ", quantity=" + quantity +

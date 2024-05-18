@@ -1,34 +1,75 @@
-import exeptions.LocationException;
-import sun.util.resources.LocaleData;
 
-import java.time.LocalDate;
-import java.util.Random;
+import bg.tu_varna.sit.commands.*;
+import bg.tu_varna.sit.models.*;
+
+import bg.tu_varna.sit.exeptions.EmptyStringException;
+import bg.tu_varna.sit.exeptions.LocationException;
+import bg.tu_varna.sit.exeptions.NegativeNumberException;
+import bg.tu_varna.sit.interfaces.ManageHistory;
+import bg.tu_varna.sit.menageHistory.AddedProductHistory;
+import bg.tu_varna.sit.menageHistory.ShowChanges;
+import bg.tu_varna.sit.interfaces.Command;
+import bg.tu_varna.sit.menu.MenuCommands;
+import bg.tu_varna.sit.validateDate.ValidateDate;
+import bg.tu_varna.sit.warehouse.Warehouse;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
 public class Main {
-    public static void main(String[] args) throws LocationException {
-        Product product1 = new Product("MILK", "30/6/2024", "15/1/2024", "ВЕРЕЯ", "КГ", 15, "Older");
-        Product product2 = new Product("MILK", "10/5/2024", "18/1/2024", "ВЕРЕЯ", "КГ", 20, "Newer");
-        Product product3 = new Product("MILK", "10/5/2024", "20/1/2024", "ВЕРЕЯ", "КГ", 4, "Newer");
-        Product product4 = new Product("MILK", "10/5/2024", "26/1/2024", "ВЕРЕЯ", "КГ", 235, "Newer");
-        Product product5 = new Product("PROBA", "15/5/2024", "22/2/2024", "ВЕРЕЯ", "КГ", 235, "Newer");
+    public static void main(String[] args) throws LocationException, EmptyStringException, NegativeNumberException, IOException {
+        Scanner sc = new Scanner(System.in);
+        Warehouse warehouse = Warehouse.getInstance();
+        ValidateDate validateDate = new ValidateDate();
+        Map<MenuCommands, Command> menu = new HashMap<>();
+        ManageHistory manageHistory = new AddedProductHistory();
+        Command helpCommand = new HelpCommand();
+        helpCommand.execute(null);
+        menuOptions(menu, manageHistory, validateDate, warehouse);
 
-        Warehouse warehouse = new Warehouse();
-        warehouse.add(product1);
-        warehouse.add(product2);
-        warehouse.add(product3);
-        warehouse.add(product5);
-        warehouse.remove("MILK", 13);
-        warehouse.remove("MILK", 5);
-        System.out.println();
+        while (true) {
+            System.out.println("Enter command:");
+            String s = sc.nextLine().trim();
+            if (s.isEmpty()) {
+                System.out.println("Command Error, try again");
+                continue;
+            }
 
-        //ValidateDate date=new ValidateDate();
-        //Scanner sc=new Scanner(System.in);
-        //String inputDate=sc.next();
-        //date.validate(inputDate);
-        warehouse.showHistory("1/9/2022", "19/1/2024");
-        warehouse.clean("11/5/2024");
-warehouse.loss("1/5/2024", "30/5/2024","MILK",3.14,"KG");
+            String[] userInput = s.split("\\s+");
+            userInput[0] = userInput[0].toUpperCase();
+
+            try {
+                MenuCommands command = MenuCommands.valueOf(userInput[0]);
+
+
+                if (menu.containsKey(command)) {
+                    menu.get(command).execute(userInput);
+                    System.out.println("Enter new option:");
+                } else {
+                    System.out.println("Command Error, try again");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println("Command Error, try again");
+            }
+        }
+    }
+
+    private static void menuOptions(Map<MenuCommands, Command> menu, ManageHistory manageHistory, ValidateDate validateDate, Warehouse warehouse) {
+        menu.put(MenuCommands.ADD, new AddProduct(manageHistory, validateDate, warehouse));
+        menu.put(MenuCommands.REMOVE, new Remove(manageHistory, warehouse));
+        menu.put(MenuCommands.CLEAN, new Clean(warehouse));
+        menu.put(MenuCommands.LOG, new ShowChanges(warehouse));
+        menu.put(MenuCommands.HELP, new HelpCommand());
+        menu.put(MenuCommands.LOSS, new LossImpl(warehouse));
+        menu.put(MenuCommands.CLOSE, new CloseFileCommand(warehouse));
+        menu.put(MenuCommands.OPEN, new OpenFileCommand(warehouse));
+        menu.put(MenuCommands.SAVE, new SaveCommand(warehouse));
+        menu.put(MenuCommands.SAVEAS, new SaveAsCommand(warehouse));
+        menu.put(MenuCommands.EXIT, new ExitCommand());
+        menu.put(MenuCommands.PRINT, new PrintData(warehouse));
+
     }
 }

@@ -1,3 +1,6 @@
+package bg.tu_varna.sit.validateDate;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class ValidateDate {
@@ -38,7 +41,7 @@ public class ValidateDate {
                 break;
             default:
                 System.out.println("Not a valid month! ");
-                while (!(month.compareTo("1") >= 0 && day.compareTo("12") <= 0)) {
+                while (!(month.compareTo("1") >= 0 && month.compareTo("12") <= 0)) {
                     System.out.println("Not a valid month!\n Enter month from 1-12!");
                     month = sc.next();
                 }
@@ -57,19 +60,36 @@ public class ValidateDate {
         return sb.toString();
     }
 
-    public String getDay(String date){
-        String[] tempArr=date.split("/");
+    public String getDay(String date) {
+        String[] tempArr = date.split("/");
         return tempArr[0];
     }
-    public String getMonth(String date){
-        String[] tempArr=date.split("/");
+
+    public String getMonth(String date) {
+        String[] tempArr = date.split("/");
         return tempArr[1];
     }
-    public String getYear(String date){
-        String[] tempArr=date.split("/");
+
+    public String getYear(String date) {
+        String[] tempArr = date.split("/");
         return tempArr[2];
     }
 
+    /**
+     * This method is used to parse a given string into localDate
+     * getYear getDay getMonth are other methods that are simply splithing the given string on given delimeter
+     * after getting the actual day month and year i pass them(parsed to int ) to the localDate.of() function and parse the into LocalDate
+     * I created this method to help me have more readable code because there were to many times that i needed to parse some string to local date
+     *
+     * @param dateString the given string needed to be parsed
+     * @return
+     */
+    public LocalDate parseDate(String dateString) {
+         String year = getYear(dateString);
+        String day = getDay(dateString);
+        String month =getMonth(dateString);
+        return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
+    }
 
 
 }
