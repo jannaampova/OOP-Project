@@ -57,7 +57,7 @@ public class Product implements Comparable<Product> {
     public void setExpiryDate(String expiryDate) {
         ValidateDate date = new ValidateDate();
         this.expiryDate = date.validate(expiryDate);
-        ;
+
     }
 
     public String getArrivalDate() {
@@ -188,7 +188,6 @@ public class Product implements Comparable<Product> {
      * @return 1 if this product's expiry date is before the other product's expiry date,
      *         0 if they are equal,
      *        -1 if this product's expiry date is after the other
-     * @param o the object to be compared.
      *
      */
     @Override

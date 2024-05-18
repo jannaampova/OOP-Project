@@ -54,7 +54,7 @@ public class Location {
         return quantity;
     }
 
-    public void setQuantity(double number) throws LocationException {
+    public void setQuantity(double number) {
         double availableSpace=shelfCapacity-getQuantity();
         if(number>shelfCapacity){
             System.out.println(("No capacity on shelf,You can add " + availableSpace));

@@ -14,7 +14,6 @@ import java.util.Scanner;
  */
 public class ShowChanges implements Command {
     private Warehouse warehouse;
-    private Scanner scanner;
 
     public ShowChanges(Warehouse warehouse) {
         this.warehouse = warehouse;
