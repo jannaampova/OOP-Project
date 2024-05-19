@@ -10,9 +10,9 @@ import bg.tu_varna.sit.warehouse.Warehouse;
  */
 public class CloseFileCommand implements Command {
     /**
-     * Executes the close command. If no file is currently opened, an error message is displayed.
+     * Executes the close command. If no file is currently opened, an error message is displayed.<br>
      *
-     * @param args the arguments provided to the command, not used in this command.
+     * @param args the arguments provided to the command, not used in this command.<br>
      */
     private final Warehouse warehouse;
 
@@ -21,12 +21,12 @@ public class CloseFileCommand implements Command {
     }
 
     /**
-     * Executes the close command, closing the currently opened file.
-     * If no file is currently opened, an error message is displayed.
+     * Executes the close command, closing the currently opened file.<br>
+     * If no file is currently opened, an error message is displayed.<br>
      *
-     * @param data the arguments provided to the command, not used in this command.
-     * @throws NegativeNumberException if a negative number is encountered.
-     * @throws LocationException       if an error related to location occurs.
+     * @param data the arguments provided to the command, not used in this command.<br>
+     * @throws NegativeNumberException if a negative number is encountered.<br>
+     * @throws LocationException       if an error related to location occurs.<br>
      */
     @Override
     public void execute(String[] data) throws NegativeNumberException, LocationException {

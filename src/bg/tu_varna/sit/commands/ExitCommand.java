@@ -3,9 +3,9 @@ package bg.tu_varna.sit.commands;
 import bg.tu_varna.sit.interfaces.Command;
 
 /**
- *   The  class implements the {@code Command} interface
- *   and provides functionality to exit the program.
- *   This command, when executed, prints a message indicating that the
+ *   The  class implements the {@code Command} interface<br>
+ *   and provides functionality to exit the program.<br>
+ *   This command, when executed, prints a message indicating that the<br>
  *   program is exiting and then terminates the JVM using {@code System.exit(0)}.</p>
  */
 public class ExitCommand implements Command {

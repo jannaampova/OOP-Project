@@ -9,8 +9,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * This class is used for executing the log command and it is calling a method that shows the history for removed and added products in given date range.
- * The command interface is implemented for the use of its instance in the map for the options from which the user can choose
+ * This class is used for executing the log command<br>
+ * It is calling a method that shows the history for removed and added products in given date range.<br>
+ * The command interface is implemented for the use of its instance in the map for the options from which the user can choose<br>
  */
 public class ShowChanges implements Command {
     private Warehouse warehouse;

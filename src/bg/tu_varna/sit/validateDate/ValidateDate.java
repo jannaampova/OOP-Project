@@ -4,6 +4,13 @@ import java.time.LocalDate;
 import java.util.Scanner;
 
 public class ValidateDate {
+    /**
+     * Validates the accuracy of a given date based on the current month and the days each month can have.
+     * This method will repeatedly prompt the user to correct the date if any component (day, month, year) is invalid.
+     *
+     * @param userInputDate The input date as a String in the format "dd/mm/yyyy".
+     * @return A validated date String in the format "dd/mm/yyyy".
+     */
     public String validate(String userInputDate) {
         String[] tempString = userInputDate.split("/");
         String day = tempString[0];
@@ -60,6 +67,11 @@ public class ValidateDate {
         return sb.toString();
     }
 
+    /**
+     * These three methods simply take a given string and split it based on a delimiter
+     * and return the actual day/month/year
+     * @param date given string as date
+     */
     public String getDay(String date) {
         String[] tempArr = date.split("/");
         return tempArr[0];
@@ -76,13 +88,12 @@ public class ValidateDate {
     }
 
     /**
-     * This method is used to parse a given string into localDate
-     * getYear getDay getMonth are other methods that are simply splithing the given string on given delimeter
-     * after getting the actual day month and year i pass them(parsed to int ) to the localDate.of() function and parse the into LocalDate
-     * I created this method to help me have more readable code because there were to many times that i needed to parse some string to local date
+     * This method is used to parse a given string into localDate<br>
+     * getYear getDay getMonth are other methods that are simply splithing the given string on given delimeter<br>
+     * after getting the actual day month and year i pass them(parsed to int ) to the localDate.of() function and parse the into LocalDate<br>
+     * I created this method to help me have more readable code because there were to many times that i needed to parse some string to local date<br>
      *
-     * @param dateString the given string needed to be parsed
-     * @return
+     * @param dateString the given string needed to be parsed<br>
      */
     public LocalDate parseDate(String dateString) {
          String year = getYear(dateString);

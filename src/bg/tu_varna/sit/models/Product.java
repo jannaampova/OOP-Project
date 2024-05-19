@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * The Product class represents a product in a warehouse, with attributes such as name, expiry date,
- * arrival date, manufacturer, unit, quantity, location, and comment. It implements the Comparable interface
+ * The Product class represents a product in a warehouse, with attributes such as name, expiry date,<br>
+ * arrival date, manufacturer, unit, quantity, location, and comment. It implements the Comparable interface<br>
  * to allow sorting based on the expiry date.
  */
 public class Product implements Comparable<Product> {
@@ -181,14 +181,12 @@ public class Product implements Comparable<Product> {
     }
 
     /**
-     *
      * Compares this product to another product based on their expiry dates.
      * I am using this method to sort the products according the dates when removing them
      * @param o The other product to compare with.
      * @return 1 if this product's expiry date is before the other product's expiry date,
      *         0 if they are equal,
      *        -1 if this product's expiry date is after the other
-     *
      */
     @Override
     public int compareTo(Product o) {

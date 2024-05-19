@@ -20,19 +20,19 @@ public class SaveCommand implements Command {
     }
 
     /**
-     * First it checks if a file path for the warehouse is set(with the openFileCommand)
-     * if yes writes data into file using the help of method toFile()
-     * else gives a message to the user that there is no file opened or there is error wile saving
+     * First it checks if a file path for the warehouse is set(with the openFileCommand)<br>
+     * if yes writes data into file using the help of method toFile()<br>
+     * else gives a message to the user that there is no file opened or there is error wile saving<br>
      */
     @Override
     public void execute(String[] data) throws NegativeNumberException, LocationException {
         if (warehouse.getCurrentFilePath() == null) {
-            System.out.println("No file currently opened");
+            System.out.println("No file currently opened!");
             return;
         }
         try(FileWriter writer=new FileWriter(warehouse.getCurrentFilePath())) {
             writer.write(warehouse.toFile());
-            System.out.println("File saved successfully to current opened file"+warehouse.getCurrentFilePath());
+            System.out.println("File saved successfully to current opened file: "+warehouse.getCurrentFilePath());
         } catch (IOException e) {
             System.out.println("Failed to save in file");
             throw new RuntimeException(e);

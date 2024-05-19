@@ -25,11 +25,11 @@ public class Main {
         Warehouse warehouse = Warehouse.getInstance();
         ValidateDate validateDate = new ValidateDate();
         Map<MenuCommands, Command> menu = new HashMap<>();
+        AddedProductHistory addedProductHistory = new AddedProductHistory();
         ManageHistory manageHistory = new AddedProductHistory();
         Command helpCommand = new HelpCommand();
         helpCommand.execute(null);
         menuOptions(menu, manageHistory, validateDate, warehouse);
-
         while (true) {
             System.out.println("Enter command:");
             String s = sc.nextLine().trim();
@@ -55,10 +55,19 @@ public class Main {
                 System.out.println("Command Error, try again");
             }
         }
+
     }
 
+    /**
+     * Map containing all possible options from which the user can choose<br>
+     *
+     * @param menu          the map of enum as key and interface command as value <br>
+     * @param manageHistory instance of menageHistory interface<br>
+     * @param validateDate  instance of validateDate class <br>
+     * @param warehouse     instance of Warehouse class(the one and only instance)<br>
+     */
     private static void menuOptions(Map<MenuCommands, Command> menu, ManageHistory manageHistory, ValidateDate validateDate, Warehouse warehouse) {
-        menu.put(MenuCommands.ADD, new AddProduct(manageHistory, validateDate, warehouse));
+        menu.put(MenuCommands.ADD, new AddProduct(manageHistory, warehouse));
         menu.put(MenuCommands.REMOVE, new Remove(manageHistory, warehouse));
         menu.put(MenuCommands.CLEAN, new Clean(warehouse));
         menu.put(MenuCommands.LOG, new ShowChanges(warehouse));

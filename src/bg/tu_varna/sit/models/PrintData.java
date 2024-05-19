@@ -10,13 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class purpose is to output the information about the products in the warehouse in the current moment
+ * This class purpose is to output the information about the products in the warehouse in the current moment<br>
  * It iterates through  the main map(Product name-List of products with that name and their details) and gets the information out of it
  */
 public class PrintData implements Print, Command {
 
-    int i = 0;
-    StringBuilder sb = new StringBuilder("PRODUCTS: ");
+
     private Warehouse warehouse;
 
     public PrintData(Warehouse warehouse) {
@@ -25,6 +24,9 @@ public class PrintData implements Print, Command {
 
     @Override
     public String printData(Map<String, List<Product>> listOfProducts) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("PRODUCTS: ");
+        int i = 0;
         for (Map.Entry<String, List<Product>> productEntry : listOfProducts.entrySet()) {
             String productName = productEntry.getKey();
             List<Product> products = productEntry.getValue();

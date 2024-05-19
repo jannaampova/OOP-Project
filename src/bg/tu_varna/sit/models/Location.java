@@ -5,8 +5,8 @@ import bg.tu_varna.sit.exeptions.LocationException;
 import java.util.*;
 
 /**
- *  The Location class represents a location in a warehouse, defined by a sector and a shelf.
- *  It manages the capacity of products on each shelf and the number of shelves in each sector.
+ *  The Location class represents a location in a warehouse, defined by a sector and a shelf.<br>
+ *  It manages the capacity of products on each shelf and the number of shelves in each sector.<br>
  *  The map represents every sector and its shelf occupation
  *
  */
@@ -86,13 +86,7 @@ public class Location {
 
     @Override
     public String toString() {
-        return "models.Location{" +
-                "sector='" + sector + '\'' +
-                ", shelf=" + shelf +
-                ", quantity=" + quantity +
-                ", shelfCapacity=" + shelfCapacity +
-                ", sectorCapacity=" + sectorCapacity +
-                '}';
+        return "Sector: "+getSector()+" Shelf: "+getRealShelf()+" Shelf capacity: "+shelfCapacity;
     }
 }
 

@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *The warehouse is practically the main class of the programme it consists of instances of  all the needed commands and<br>
+ * it has the role of messenger to their actual implementations
+ */
 public class Warehouse {
     private static Warehouse instance;
     private Map<String, List<Product>> products;
@@ -31,7 +35,7 @@ public class Warehouse {
     private Warehouse() {
         this.products = new HashMap<>();
         this.addProductHistory = new AddedProductHistory();
-        this.add = new AddProduct(addProductHistory, new ValidateDate(), this);
+        this.add = new AddProduct(addProductHistory, this);
         this.removeProductHistory = new RemoveProductHistory();
         this.cleaner = new Clean(this);
         this.remove = new Remove(removeProductHistory, this);
@@ -54,7 +58,6 @@ public class Warehouse {
     }
 
     public void showHistory(String fromDate, String toDate) throws IOException {
-
         addProductHistory.getHistoryInfo(fromDate, toDate);
         removeProductHistory.getHistoryInfo(fromDate, toDate);
     }
