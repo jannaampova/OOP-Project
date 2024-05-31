@@ -4,11 +4,10 @@ import bg.tu_varna.sit.interfaces.Add;
 import bg.tu_varna.sit.interfaces.Delete;
 import bg.tu_varna.sit.interfaces.ManageHistory;
 import bg.tu_varna.sit.interfaces.Print;
+import bg.tu_varna.sit.menageHistory.ProductHistory;
 import bg.tu_varna.sit.models.*;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
-import bg.tu_varna.sit.menageHistory.AddedProductHistory;
-import bg.tu_varna.sit.menageHistory.RemoveProductHistory;
 import bg.tu_varna.sit.validateDate.ValidateDate;
 
 import java.io.IOException;
@@ -27,18 +26,15 @@ public class Warehouse {
     private Delete remove;
     private Clean cleaner;
     private Print print;
-
-    private ManageHistory addProductHistory;
-    private ManageHistory removeProductHistory;
+    private ManageHistory productHistory;
     private String currentFilePath;
 
     private Warehouse() {
         this.products = new HashMap<>();
-        this.addProductHistory = new AddedProductHistory();
-        this.add = new AddProduct(addProductHistory, this);
-        this.removeProductHistory = new RemoveProductHistory();
+        this.productHistory=new ProductHistory();
+        this.add = new AddProduct(productHistory, this);
         this.cleaner = new Clean(this);
-        this.remove = new Remove(removeProductHistory, this);
+        this.remove = new Remove(productHistory, this);
         this.print = new PrintData(this);
     }
 
@@ -58,8 +54,7 @@ public class Warehouse {
     }
 
     public void showHistory(String fromDate, String toDate) throws IOException {
-        addProductHistory.getHistoryInfo(fromDate, toDate);
-        removeProductHistory.getHistoryInfo(fromDate, toDate);
+        productHistory.getHistoryInfo(fromDate,toDate);
     }
 
     public void clean(String date) {

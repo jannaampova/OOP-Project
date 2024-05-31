@@ -6,7 +6,6 @@ import bg.tu_varna.sit.interfaces.ManageHistory;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
 import bg.tu_varna.sit.interfaces.Command;
-import bg.tu_varna.sit.menageHistory.AddedProductHistory;
 import bg.tu_varna.sit.validateDate.ValidateDate;
 import bg.tu_varna.sit.warehouse.Warehouse;
 
@@ -27,10 +26,11 @@ public class AddProduct implements Add, Command {
         this.scanner = new Scanner(System.in);
     }
 
+
     /**
      * <p> Adds a new product to the warehouse inventory.
      * This method efficiently manages the addition of products while considering existing products with the same name and expiry dates.
-     *<p/><br>
+     *<br>
      * @param listOfProducts The map containing the list of products in the warehouse, where the key is the product name and the value is a list of products with the same name.<br>
      * @throws LocationException if an error related to the product's location occurs.<br>
      * @throws NegativeNumberException if a negative number is encountered.<br>
@@ -59,13 +59,14 @@ public class AddProduct implements Add, Command {
     @Override
     public void add(Map<String, List<Product>> listOfProducts, Product product) throws LocationException, NegativeNumberException, IOException {
         boolean flag = true;
-        addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.getQuantity());
-        for (Map.Entry<String, List<Product>> stringListEntry : listOfProducts.entrySet()) {
-            if (stringListEntry.getKey().equals(product.getName())) {
+        addProduct.addNewChange(product.getArrivalDate(), product.getName(), product.getQuantity(),false);
+        for (Map.Entry<String, List<Product>> outerMapProductName : listOfProducts.entrySet())
+        {
+            if (outerMapProductName.getKey().equals(product.getName())) {
                 String expiryDateNew = product.getExpiryDate();
 
 
-                for (Product p : stringListEntry.getValue()) {
+                for (Product p : outerMapProductName.getValue()) {
                     String expiryDateCurr = p.getExpiryDate();
 
                     if (checkDateEquality(expiryDateNew, expiryDateCurr)) {
@@ -80,7 +81,7 @@ public class AddProduct implements Add, Command {
                 }
                 if (flag) {
                     flag = false;
-                    addWithDifferentExpiryDate(product, stringListEntry.getValue());
+                    addWithDifferentExpiryDate(product, outerMapProductName.getValue());
                 }
 
             }// ako ne systestvuva s tova ime
@@ -146,13 +147,13 @@ public class AddProduct implements Add, Command {
      * If the product doesn't exist yet, it creates a new empty list for it<br>
      * Add the product to the newly created list for its name<br>
      * @param product the product to be added to the map<br>
-     * @param stringListProduct a map where the key is the product name and the value is a list of products with that name<br>
+     * @param listOfProducts a map where the key is the product name and the value is a list of products with that name<br>
      *
      * @throws IllegalArgumentException if the product already exists in the map (by name)<br>
      */
-    public void addNotExistingProduct(Product product, Map<String, List<Product>> stringListProduct) {
-        stringListProduct.put(product.getName(), new ArrayList<>());
-        stringListProduct.get(product.getName()).add(product);
+    public void addNotExistingProduct(Product product, Map<String, List<Product>> listOfProducts) {
+        listOfProducts.put(product.getName(), new ArrayList<>());
+        listOfProducts.get(product.getName()).add(product);
     }
 
 

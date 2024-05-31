@@ -5,7 +5,6 @@ import bg.tu_varna.sit.interfaces.ManageHistory;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
 import bg.tu_varna.sit.interfaces.Command;
-import bg.tu_varna.sit.menageHistory.RemoveProductHistory;
 import bg.tu_varna.sit.warehouse.Warehouse;
 
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class Remove implements Delete, Command {
     public String remove(String name, double quantity, Map<String, List<Product>> productList) throws NegativeNumberException, IOException {
         boolean flag = false;
         StringBuilder sb = new StringBuilder();
-        if (productList.containsKey(name)) {
+        if (productList.containsKey(name))   {
             List<Product> products = productList.get(name);
             List<Product> tempProducts = new ArrayList<>();
             assert products != null;
@@ -68,8 +67,7 @@ public class Remove implements Delete, Command {
                 if (answer.equalsIgnoreCase("yes")) {
                     for (int i = 0; i < products.size(); i++) {
                         sb.append(products.get(i).getName()).append(System.lineSeparator());
-                        //   int tempQuantity = products.get(i).getQuantity();
-                        removeProductsHistory.addNewChange(products.get(i).getArrivalDate(), products.get(i).getName(), products.get(i).getQuantity());
+                        removeProductsHistory.addNewChange(products.get(i).getArrivalDate(), products.get(i).getName(), products.get(i).getQuantity(),true);
                         productList.get(products.get(i).getName()).remove(products.get(i));
                         System.out.println("Product removed successfully");
                         System.out.println(tempProducts.get(i).getLocation().toString());
@@ -100,7 +98,7 @@ public class Remove implements Delete, Command {
                     System.out.println(tempProducts.get(i).getLocation().toString());
 
                 }
-                removeProductsHistory.addNewChange(removalDate, name, quantity - saveLastQuantity);
+                removeProductsHistory.addNewChange(removalDate, name, quantity - saveLastQuantity,true);
 
             }
         } else {

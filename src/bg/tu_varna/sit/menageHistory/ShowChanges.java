@@ -22,6 +22,9 @@ public class ShowChanges implements Command {
 
     @Override
     public void execute(String[] data) throws NegativeNumberException, LocationException, IOException {
-        warehouse.showHistory(data[1],data[2]);
+        if ( data.length < 3 || data[1].equals("\n")) {
+            throw  new NegativeNumberException("Invalid parameters for this command");
+        }
+        warehouse.showHistory(data[1], data[2]);
     }
 }

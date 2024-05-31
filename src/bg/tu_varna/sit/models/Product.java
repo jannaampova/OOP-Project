@@ -43,7 +43,7 @@ public class Product implements Comparable<Product> {
     }
 
     public void setName(String name) throws EmptyStringException {
-        if (name.isEmpty()) {
+        if (name.isEmpty() || name.equals("\n")) {
             throw new EmptyStringException("The name CAN NOT be empty, please enter the name!");
         } else {
             this.name = name;
@@ -76,8 +76,9 @@ public class Product implements Comparable<Product> {
 
     public void setManufacturer(String manufacturer) throws EmptyStringException {
 
-        if (manufacturer.isEmpty()) {
+        if (manufacturer.isEmpty() || manufacturer.equals("\n")) {
             throw new EmptyStringException("Please enter the manufacturers name!");
+
         } else {
             this.manufacturer = manufacturer;
         }

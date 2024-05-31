@@ -34,7 +34,7 @@ public class PrintData implements Print, Command {
                 i++;
                 sb.append(i).append(". ").append(productName).append(System.lineSeparator())
                         .append(" quantity: ").append(product.getQuantity())
-                        .append("  manufacturer: ").append(product.getManufacturer())
+                        .append(" manufacturer: ").append(product.getManufacturer())
                         .append(" arrival date: ").append(product.getArrivalDate())
                         .append(" expiry date: ").append(product.getExpiryDate())
                         .append(" location:").append(System.lineSeparator())

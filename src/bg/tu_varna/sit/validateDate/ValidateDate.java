@@ -62,14 +62,13 @@ public class ValidateDate {
             year = sc.next();
 
         }
-        StringBuilder sb = new StringBuilder();
-        sb.append(day).append("/").append(month).append("/").append(year);
-        return sb.toString();
+        return day + "/" + month + "/" + year;
     }
 
     /**
      * These three methods simply take a given string and split it based on a delimiter
      * and return the actual day/month/year
+     *
      * @param date given string as date
      */
     public String getDay(String date) {
@@ -96,9 +95,9 @@ public class ValidateDate {
      * @param dateString the given string needed to be parsed<br>
      */
     public LocalDate parseDate(String dateString) {
-         String year = getYear(dateString);
+        String year = getYear(dateString);
         String day = getDay(dateString);
-        String month =getMonth(dateString);
+        String month = getMonth(dateString);
         return LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day));
     }
 

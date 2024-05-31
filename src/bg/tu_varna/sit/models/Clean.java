@@ -90,7 +90,7 @@ public class Clean implements Command {
             }
         }
     }
-
+    
     /**
      * This method calculates the loss of particular given product(if the products actually exists) in particular range of time<br>
      * By given price and unity of the product<br>

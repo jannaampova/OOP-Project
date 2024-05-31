@@ -10,7 +10,6 @@ import java.io.IOException;
  */
 
 public interface ManageHistory {
-    void addNewChange(String date,String name,double quantity) throws IOException;
+    void addNewChange(String date,String name,double quantity,boolean isRemoval) throws IOException;
     void getHistoryInfo(String fromDate,String toDate) throws IOException;
-     void writeIntoFile() throws IOException;
 }
