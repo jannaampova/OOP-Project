@@ -1,10 +1,10 @@
-package bg.tu_varna.sit.models;
+package bg.tu_varna.sit.models.functions;
 
 import bg.tu_varna.sit.interfaces.Print;
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.models.Product;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
-import bg.tu_varna.sit.interfaces.Command;
 
 import java.util.List;
 import java.util.Map;
@@ -13,9 +13,7 @@ import java.util.Map;
  * This class purpose is to output the information about the products in the warehouse in the current moment<br>
  * It iterates through  the main map(Product name-List of products with that name and their details) and gets the information out of it
  */
-public class PrintData implements Print, Command {
-
-
+public class PrintData implements Print {
     private Warehouse warehouse;
 
     public PrintData(Warehouse warehouse) {
@@ -47,8 +45,10 @@ public class PrintData implements Print, Command {
         return sb.toString();
     }
 
-    @Override
-    public void execute(String[] data) throws NegativeNumberException, LocationException {
-        System.out.println(warehouse.printData());
+    /**
+     * Outputs the information about all existing products in the warehouse
+     */
+    public void warehouseFunction() throws NegativeNumberException, LocationException {
+        System.out.println(printData(warehouse.getProducts()));
     }
 }

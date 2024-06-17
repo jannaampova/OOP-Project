@@ -1,11 +1,11 @@
-package bg.tu_varna.sit.models;
+package bg.tu_varna.sit.models.functions;
 
 import bg.tu_varna.sit.interfaces.Delete;
 import bg.tu_varna.sit.interfaces.ManageHistory;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
-import bg.tu_varna.sit.interfaces.Command;
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.models.Product;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,9 +13,9 @@ import java.util.*;
  * The Remove class provides functionality for removing products from a warehouse.<br>
  * It implements the Delete and Command interfaces.
  */
-public class Remove implements Delete, Command {
+public class Remove  implements Delete {
     private final ManageHistory removeProductsHistory;
-    private final Warehouse warehouse;
+    private Warehouse warehouse;
     private final Scanner scanner;
 
     public Remove(ManageHistory removeProductsHistory, Warehouse warehouse) {
@@ -111,13 +111,12 @@ public class Remove implements Delete, Command {
      * Allows to the user to prompt the data for the product to be removed and the quantity of it
      * and executes the actual implementation of the command
      */
-    @Override
-    public void execute(String[] data) throws NegativeNumberException, LocationException, IOException {
+
+    public void warehouseFunction() throws NegativeNumberException, IOException, LocationException {
         System.out.println("Which product you want to remove and how much of it?");
         String name = scanner.nextLine();
         int quantity = Integer.parseInt(scanner.nextLine());
         name = name.toUpperCase();
-        warehouse.remove(name, quantity);
-
+        remove(name, quantity,warehouse.getProducts());
     }
 }

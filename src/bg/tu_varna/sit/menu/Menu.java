@@ -1,6 +1,5 @@
 package bg.tu_varna.sit.menu;
 
-import bg.tu_varna.sit.commands.*;
 import bg.tu_varna.sit.exeptions.EmptyStringException;
 import bg.tu_varna.sit.exeptions.InvalidCommandException;
 import bg.tu_varna.sit.exeptions.LocationException;
@@ -8,11 +7,12 @@ import bg.tu_varna.sit.exeptions.NegativeNumberException;
 import bg.tu_varna.sit.interfaces.Command;
 import bg.tu_varna.sit.interfaces.ManageHistory;
 import bg.tu_varna.sit.menageHistory.ProductHistory;
-import bg.tu_varna.sit.menageHistory.ShowChanges;
-import bg.tu_varna.sit.menu.MenuCommands;
-import bg.tu_varna.sit.models.*;
-import bg.tu_varna.sit.validateDate.ValidateDate;
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.menu.commands.*;
+import bg.tu_varna.sit.models.functions.Add;
+import bg.tu_varna.sit.models.functions.Clean;
+import bg.tu_varna.sit.models.functions.PrintData;
+import bg.tu_varna.sit.models.functions.Remove;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,12 +27,11 @@ public class Menu {
     private final Map<MenuCommands, Command> menu = new HashMap<>();
     private final Scanner sc = new Scanner(System.in);
     private final Warehouse warehouse;
-    private final ValidateDate validateDate;
+
     private final ManageHistory manageHistory;
 
     public Menu() {
         this.warehouse = Warehouse.getInstance();
-        this.validateDate = new ValidateDate();
         this.manageHistory = new ProductHistory();
         initializeMenu();
     }
@@ -42,18 +41,18 @@ public class Menu {
      * This method is called in the constructor to set up the available commands in the menu.
      */
     private void initializeMenu() {
-        menu.put(MenuCommands.ADD, new AddProduct(manageHistory, warehouse));
-        menu.put(MenuCommands.REMOVE, new Remove(manageHistory, warehouse));
-        menu.put(MenuCommands.CLEAN, new Clean(warehouse));
-        menu.put(MenuCommands.LOG, new ShowChanges(warehouse));
+        menu.put(MenuCommands.ADD, new AddProductCommand(new Add(manageHistory,warehouse)));
+        menu.put(MenuCommands.REMOVE, new RemoveCommand(new Remove(manageHistory, warehouse)));
+        menu.put(MenuCommands.CLEAN, new CleanCommand(new Clean(warehouse)));
+        menu.put(MenuCommands.LOG, new LogHistoryCommand(new ProductHistory()));
         menu.put(MenuCommands.HELP, new HelpCommand());
-        menu.put(MenuCommands.LOSS, new LossImpl(warehouse));
+        menu.put(MenuCommands.LOSS, new LossCommand(new Clean(warehouse)));
         menu.put(MenuCommands.CLOSE, new CloseFileCommand(warehouse));
         menu.put(MenuCommands.OPEN, new OpenFileCommand(warehouse));
         menu.put(MenuCommands.SAVE, new SaveCommand(warehouse));
         menu.put(MenuCommands.SAVEAS, new SaveAsCommand(warehouse));
         menu.put(MenuCommands.EXIT, new ExitCommand());
-        menu.put(MenuCommands.PRINT, new PrintData(warehouse));
+        menu.put(MenuCommands.PRINT, new PrintCommand(new PrintData(warehouse)));
     }
 
     /**

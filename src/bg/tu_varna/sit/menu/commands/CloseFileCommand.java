@@ -1,9 +1,9 @@
-package bg.tu_varna.sit.commands;
+package bg.tu_varna.sit.menu.commands;
 
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
 import bg.tu_varna.sit.interfaces.Command;
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 
 /**
  * This class represents a command to close the currently opened file as it sets the path to null

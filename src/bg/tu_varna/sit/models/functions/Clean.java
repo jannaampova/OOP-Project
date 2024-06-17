@@ -1,9 +1,9 @@
-package bg.tu_varna.sit.models;
+package bg.tu_varna.sit.models.functions;
 
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.models.Product;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
-import bg.tu_varna.sit.interfaces.Command;
 import bg.tu_varna.sit.validateDate.ValidateDate;
 
 import java.time.LocalDate;
@@ -18,16 +18,17 @@ import java.util.Scanner;
  * in the warehouse. It checks for expired products or products that are near their expiry date
  * and calculates the potential loss for a given period.
  */
-public class Clean implements Command {
-    private ValidateDate dateValidation;
-    private Map<String, Map<String, Double>> menageLossOfProducts;
-    private Warehouse warehouse;
-    private Scanner scanner;
+public class Clean {
+    private final ValidateDate dateValidation;
+    private final Map<String, Map<String, Double>> menageLossOfProducts;
+    private final Warehouse warehouse;
+    private final Scanner scanner;
 
     /**
      * Constructs a new  instance with the specified warehouse.<br>
      * menageLossOfProducts is a nested Map that tracks the quantity of products that are either expired or near their expiry date.<br>
      * The key is the expiry date of the products in String format.<br>
+     *
      * @param warehouse the warehouse instance to be used by this class<br>
      */
     public Clean(Warehouse warehouse) {
@@ -90,7 +91,7 @@ public class Clean implements Command {
             }
         }
     }
-    
+
     /**
      * This method calculates the loss of particular given product(if the products actually exists) in particular range of time<br>
      * By given price and unity of the product<br>
@@ -137,14 +138,27 @@ public class Clean implements Command {
     /**
      * It prompts the user to enter a date and then<br>
      * checks for expired or soon-to-expire products in the warehouse up to the given date.
-     *
-     * @param data user input
      */
-    @Override
-    public void execute(String[] data) throws NegativeNumberException, LocationException {
+
+    public void clean() throws NegativeNumberException, LocationException {
         System.out.println("Enter the date to which you want to check expired or soon to expire products!\n");
         String date = scanner.nextLine();
-        warehouse.clean(date);
+        cleanProducts(warehouse.getProducts(), date);
+    }
+    public  void checkLoss(){
+        System.out.println("Enter the product name: ");
+        String name=scanner.nextLine();
+        name=name.toUpperCase();
+        System.out.println("Enter the lower bound date: d/m/yyyy");
+        String fromdate=scanner.nextLine();
+        System.out.println("Enter the upper bound date: d/m/yyyy");
+        String toDate=scanner.nextLine();
+        System.out.println("Enter the price of the product");
+        double price=scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("Enter the unity of th product KG or PIECE: ");
+        String unity=scanner.nextLine();
+        calculateLoss(fromdate,toDate,name,price,unity);
     }
 
 

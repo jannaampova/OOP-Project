@@ -21,6 +21,7 @@ public class WriteIntoFIle {
      */
 
     public void writeIntoFile(String filename, Map<String, Map<String, Double>> mapForChanges) throws IOException {
+
         try (FileWriter writer = new FileWriter(filename)) {
             for (Map.Entry<String, Map<String, Double>> stringMapEntry : mapForChanges.entrySet()) {
                 for (Map.Entry<String, Double> innerMap : stringMapEntry.getValue().entrySet()) {

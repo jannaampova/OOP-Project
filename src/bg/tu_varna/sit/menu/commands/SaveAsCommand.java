@@ -1,6 +1,6 @@
-package bg.tu_varna.sit.commands;
+package bg.tu_varna.sit.menu.commands;
 
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
 import bg.tu_varna.sit.interfaces.Command;

@@ -1,8 +1,10 @@
-package bg.tu_varna.sit.commands;
+package bg.tu_varna.sit.menu.commands;
 
 import bg.tu_varna.sit.interfaces.Command;
+import bg.tu_varna.sit.menageHistory.ProductHistory;
+import bg.tu_varna.sit.models.functions.Add;
 import bg.tu_varna.sit.models.Product;
-import bg.tu_varna.sit.warehouse.Warehouse;
+import bg.tu_varna.sit.models.warehouse.Warehouse;
 import bg.tu_varna.sit.exeptions.EmptyStringException;
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
@@ -42,6 +44,7 @@ public class OpenFileCommand implements Command {
      */
     @Override
     public void execute(String[] data) throws NegativeNumberException, LocationException, IOException {
+        bg.tu_varna.sit.interfaces.Add add = new Add(new ProductHistory(), warehouse);
         if (data.length < 2) {
             throw new IllegalArgumentException("File path not provided.");
         }
@@ -69,7 +72,7 @@ public class OpenFileCommand implements Command {
                 String[] oneProduct = line.split(",");
                 try {
                     Product product = new Product(oneProduct[0], oneProduct[1], oneProduct[2], oneProduct[3], oneProduct[4], Double.parseDouble(oneProduct[5]), oneProduct[6]);
-                    warehouse.add(product);
+                    add.add(warehouse.getProducts(),product);
                 } catch (NumberFormatException e) {
                     System.out.println("Invalid quantity format for product: " + line);
                 } catch (NegativeNumberException | LocationException e) {

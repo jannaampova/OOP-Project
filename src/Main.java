@@ -11,7 +11,6 @@ import java.io.IOException;
  * It initializes the {@code Menu} class and starts processing user commands.
  */
 public class Main {
-
     public static void main(String[] args) throws LocationException, EmptyStringException, NegativeNumberException, IOException, InvalidCommandException {
         Menu menuHandler = new Menu();
         menuHandler.processCommands();

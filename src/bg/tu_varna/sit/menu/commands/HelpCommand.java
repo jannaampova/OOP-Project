@@ -1,4 +1,4 @@
-package bg.tu_varna.sit.commands;
+package bg.tu_varna.sit.menu.commands;
 
 import bg.tu_varna.sit.exeptions.LocationException;
 import bg.tu_varna.sit.exeptions.NegativeNumberException;
